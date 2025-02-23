@@ -11,6 +11,7 @@ I make it for my flutter projects.
 ![exit](https://github.com/user-attachments/assets/83bc57ca-6b27-42b0-843d-c17bdadccb70)
 
 committee management system in dart
+
 ![code start   file view](https://github.com/user-attachments/assets/2f36b177-7fc8-46bf-a951-62e6e1c1d6c3)
 ![menu](https://github.com/user-attachments/assets/a0b97c93-2b22-437b-b251-adfc2dc57af4)
 ![add member](https://github.com/user-attachments/assets/d330d49a-a6f2-4a3b-bf51-e441e6305c4d)
@@ -21,4 +22,12 @@ committee management system in dart
 ![committee policies](https://github.com/user-attachments/assets/16753d0f-0388-481e-8178-c1206ca05baa)
 ![committee info](https://github.com/user-attachments/assets/b01eefec-1817-443e-af3c-044b5c43d31d)
 ![exit](https://github.com/user-attachments/assets/e4dfb23c-5657-4999-a62b-086b1d67612f)
+
+calculator in dart
+
+![add](https://github.com/user-attachments/assets/7e8f5de3-0c05-4d67-97fe-6f22c2a19a4e)
+![subtract](https://github.com/user-attachments/assets/5f7bdf0a-3b06-4108-b8f3-ad2d97190d00)
+![multiply](https://github.com/user-attachments/assets/4d87e920-1458-45c4-b680-ec7865c7280d)
+![divide](https://github.com/user-attachments/assets/12b79fdf-d884-4ac7-8308-f3b9d073f0f0)
+
 
