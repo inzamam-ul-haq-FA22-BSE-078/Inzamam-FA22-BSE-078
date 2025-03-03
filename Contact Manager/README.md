@@ -1,1 +1,10 @@
-A sample command-line application providing basic argument parsing with an entrypoint in `bin/`.
+![code   file view](https://github.com/user-attachments/assets/37a0323d-de2c-4fc0-a105-d08adcef1f9d)
+![welcome](https://github.com/user-attachments/assets/5ab28dd5-da42-4b50-b111-d0076775ee91)
+![password lock](https://github.com/user-attachments/assets/c3b42398-163d-415b-b387-ed1aac1abfca)
+![menu](https://github.com/user-attachments/assets/5af96900-a0c8-41e0-b91b-ce6887d47dca)
+![add](https://github.com/user-attachments/assets/4ece74ae-c2b7-4f5f-902e-55db93402417)
+![view 1 1](https://github.com/user-attachments/assets/cc81db98-bb3a-4bb3-b050-736cb36fec1a)
+![view 1 2](https://github.com/user-attachments/assets/8ec912b4-7833-4f50-ab32-cfa1b8293469)
+![update](https://github.com/user-attachments/assets/f826262e-6e60-4d37-be90-5451a69f1523)
+![delete](https://github.com/user-attachments/assets/ac972ade-81ac-406a-8734-e6ffa8cb61a6)
+![exit](https://github.com/user-attachments/assets/6d606611-0b62-41e7-9b10-064332d2f1a9)
