@@ -9,3 +9,7 @@ flashcard app screenshots
 ![correct and wrong option](https://github.com/user-attachments/assets/bd7362d9-d409-4afe-912b-86de89ee355b)
 ![ask for next question](https://github.com/user-attachments/assets/55cd64ed-1c6d-41aa-895b-8532950e3488)
 ![result](https://github.com/user-attachments/assets/090e27f9-dbb6-447d-b9ef-fb643a195e7b)
+
+
+https://github.com/user-attachments/assets/299782c3-148c-406a-9a79-762179104785
+
