@@ -1,6 +1,10 @@
-flashcard app screenshots
+flashcard app screenshots and videos
 
-https://github.com/user-attachments/assets/299782c3-148c-406a-9a79-762179104785
+
+
+https://github.com/user-attachments/assets/0f0f591f-8005-48e5-b226-92f5be6e2f9e
+
+
 ![category](https://github.com/user-attachments/assets/d1909587-871e-4412-9c1d-2be6b576d8aa)
 ![add category](https://github.com/user-attachments/assets/7e0d1d79-e6ee-47a3-88f7-c5e50d009fe9)
 ![question view](https://github.com/user-attachments/assets/b0353bd9-4069-469d-8578-09f64ef9a62b)
