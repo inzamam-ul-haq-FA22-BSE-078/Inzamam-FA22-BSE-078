@@ -1,14 +1,14 @@
-import 'package:bmi_calculator/constantFile.dart';
 import 'package:flutter/material.dart';
-import 'constantFile.dart';
-class RepeatTextandIconsWidget extends StatelessWidget {
-  const RepeatTextandIconsWidget({
+import 'package:bmi_calculator/constants.dart';
+
+class IconContent extends StatelessWidget {
+  const IconContent({
     Key? key,
-    required this.icondata,
+    required this.icon,
     required this.label,
   }) : super(key: key);
 
-  final IconData icondata;
+  final IconData icon;
   final String label;
 
   @override
@@ -17,7 +17,7 @@ class RepeatTextandIconsWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Icon(
-          icondata,
+          icon,
           size: 80.0,
         ),
         const SizedBox(
@@ -25,7 +25,7 @@ class RepeatTextandIconsWidget extends StatelessWidget {
         ),
         Text(
           label,
-          style: klabelstyle,
+          style: kLabelTextStyle,
         ),
       ],
     );
