@@ -10,7 +10,6 @@
       <img src="https://github.com/user-attachments/assets/e867eb8f-b556-424a-82e5-5ebf6c095a49" width="400"/>
     </td>
   </tr>
-<tr><h3 style="font-size: 45px; font-weight: bold;">Admin Side</h3></tr>
   <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/72369999-5bc2-43fa-97ee-64cb5728d2ad" width="400"/>
@@ -46,7 +45,6 @@
       <img src="https://github.com/user-attachments/assets/dd6ed29f-197f-4347-911d-f581ffa2cea3" width="400"/>
     </td>
   </tr>
-<h3 style="font-size: 45px; font-weight: bold;">Student Side</h3>
   <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/b64670f3-4545-4b87-8a88-4edf542137aa" width="400"/>
