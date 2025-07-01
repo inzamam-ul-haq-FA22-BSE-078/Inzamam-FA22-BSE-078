@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) => MaterialApp(
           title: 'University Complaint System',
+          debugShowCheckedModeBanner: false, // Add this line to remove the debug banner
           theme: ThemeData(
             primaryColor: Color(int.parse(themeProvider.appBarColor.replaceFirst('#', '0xFF'))),
             scaffoldBackgroundColor: Color(int.parse(themeProvider.bodyColor.replaceFirst('#', '0xFF'))),
