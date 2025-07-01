@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,23 +20,11 @@ class _DirectorDashboardState extends State<DirectorDashboard> with SingleTicker
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
-  // Color Scheme
-  final Color _primaryBlue = const Color(0xFF2962FF);
-  final Color _primaryPurple = const Color(0xFF9C27B0);
-  final Color _lightBlue = const Color(0xFFE3F2FD);
-  final Color _darkBlue = const Color(0xFF0D47A1);
-  final Color _darkPurple = const Color(0xFF6A1B9A);
-
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
     _controller.forward();
     supabase.from('complaints').stream(primaryKey: ['id']).eq('director_id', widget.userId).listen((data) {
       if (mounted) {
@@ -98,108 +85,57 @@ class _DirectorDashboardState extends State<DirectorDashboard> with SingleTicker
     }
   }
 
-  Color _getStatusColor(String? status) {
-    switch (status) {
-      case 'Resolved':
-        return Colors.green;
-      case 'Rejected':
-        return Colors.red;
-      case 'Pending':
-        return Colors.orange;
-      default:
-        return _primaryPurple;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _lightBlue,
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-        ),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: FaIcon(FontAwesomeIcons.bars, color: Colors.white),
+            icon: const FaIcon(FontAwesomeIcons.bars, color: Colors.white),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Text(
-          'Director Dashboard',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Director Dashboard'),
         actions: [
           IconButton(
-            icon: FaIcon(FontAwesomeIcons.cog, color: Colors.white),
+            icon: const FaIcon(FontAwesomeIcons.cog),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
           ),
           IconButton(
-            icon: FaIcon(FontAwesomeIcons.signOutAlt, color: Colors.white),
+            icon: const FaIcon(FontAwesomeIcons.signOutAlt),
             onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen())),
           ),
         ],
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [_primaryBlue, _primaryPurple],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [Color(0xFF2196F3), Color(0xFF7B1FA2)]),
           ),
         ),
-        elevation: 10,
       ),
       drawer: Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.white, _lightBlue],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            FutureBuilder<Map<String, dynamic>>(
+              future: supabase.from('users').select().eq('id', widget.userId).single(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return const Center(child: SpinKitCubeGrid(color: Color(0xFF7B1FA2)));
+                final user = snapshot.data!;
+                return UserAccountsDrawerHeader(
+                  accountName: Text(user['name'] ?? 'Unknown', style: const TextStyle(color: Colors.white)),
+                  accountEmail: Text(user['email'] ?? 'Unknown', style: const TextStyle(color: Colors.white)),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(colors: [Color(0xFF2196F3), Color(0xFF7B1FA2)]),
+                  ),
+                );
+              },
             ),
-          ),
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              FutureBuilder<Map<String, dynamic>>(
-                future: supabase.from('users').select().eq('id', widget.userId).single(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: SpinKitFadingCircle(color: _primaryPurple));
-                  }
-                  final user = snapshot.data!;
-                  return UserAccountsDrawerHeader(
-                    accountName: Text(
-                      user['name'] ?? 'Unknown',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    accountEmail: Text(
-                      user['email'] ?? 'Unknown',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [_primaryBlue, _primaryPurple],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: FaIcon(FontAwesomeIcons.signOutAlt, color: _primaryBlue),
-                title: Text(
-                  'Logout',
-                  style: TextStyle(color: _primaryBlue),
-                ),
-                onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen())),
-              ),
-            ],
-          ),
+            ListTile(
+              leading: const FaIcon(FontAwesomeIcons.signOutAlt, color: Color(0xFF2196F3)),
+              title: const Text('Logout', style: TextStyle(color: Color(0xFF2196F3))),
+              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen())),
+            ),
+          ],
         ),
       ),
       body: FadeTransition(
@@ -209,118 +145,74 @@ class _DirectorDashboardState extends State<DirectorDashboard> with SingleTicker
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                elevation: 4,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Total Complaints',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: _darkBlue),
+                    'Total Complaints: Loading...',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: _filterStatus,
-                    icon: FaIcon(FontAwesomeIcons.filter, color: _primaryPurple, size: 16),
-                    items: const [
-                      DropdownMenuItem(value: 'All', child: Text('All Complaints')),
-                      DropdownMenuItem(value: 'Escalated to Director', child: Text('Escalated to Director')),
-                      DropdownMenuItem(value: 'Resolved', child: Text('Resolved')),
-                      DropdownMenuItem(value: 'Rejected', child: Text('Rejected')),
-                    ],
-                    onChanged: (value) => setState(() => _filterStatus = value!),
-                    style: TextStyle(color: _darkBlue),
-                    dropdownColor: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+              padding: const EdgeInsets.all(16.0),
+              child: DropdownButton<String>(
+                value: _filterStatus,
+                items: [
+                  const DropdownMenuItem(value: 'All', child: Text('All')),
+                  const DropdownMenuItem(value: 'Escalated to Director', child: Text('Escalated to Director')),
+                  const DropdownMenuItem(value: 'Resolved', child: Text('Resolved')),
+                  const DropdownMenuItem(value: 'Rejected', child: Text('Rejected')),
+                ],
+                onChanged: (value) => setState(() => _filterStatus = value!),
               ),
             ),
-            const SizedBox(height: 8),
             Expanded(
               child: StreamBuilder<List<Map<String, dynamic>>>(
                 stream: supabase.from('complaints').stream(primaryKey: ['id']).eq('director_id', widget.userId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: SpinKitFadingCircle(color: _primaryPurple));
+                    return const Center(child: SpinKitCubeGrid(color: Color(0xFF7B1FA2)));
                   }
                   if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error loading complaints', style: TextStyle(color: _darkBlue)),
-                    );
+                    return Center(child: Text('Error: ${snapshot.error}'));
                   }
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(
-                      child: Text('No complaints found', style: TextStyle(color: _darkBlue)),
-                    );
+                    return const Center(child: Text('No complaints found'));
                   }
                   final complaints = snapshot.data!;
                   final filteredComplaints = _filterStatus == 'All'
                       ? complaints
                       : complaints.where((c) => c['status'] == _filterStatus).toList();
                   return ListView.builder(
-                    padding: const EdgeInsets.all(8.0),
                     itemCount: filteredComplaints.length,
                     itemBuilder: (context, index) {
                       final complaint = filteredComplaints[index];
                       return Card(
-                        elevation: 4,
-                        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(12),
+                        elevation: 2,
+                        child: ListTile(
+                          leading: const FaIcon(FontAwesomeIcons.file, color: Color(0xFF2196F3)),
+                          title: Text(complaint['title'] ?? 'Untitled', style: TextStyle(color: Colors.black)),
+                          subtitle: Text('Status: ${complaint['status'] ?? 'Unknown'}', style: TextStyle(color: Colors.black)),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const FaIcon(FontAwesomeIcons.check, color: Colors.green),
+                                onPressed: () => _resolveComplaint(complaint['id'].toString(), 'Resolved by Director'),
+                              ),
+                              IconButton(
+                                icon: const FaIcon(FontAwesomeIcons.times, color: Colors.red),
+                                onPressed: () => _rejectComplaint(complaint['id'].toString()),
+                              ),
+                            ],
+                          ),
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => ComplaintTimeline(complaintId: complaint['id'].toString())),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                FaIcon(FontAwesomeIcons.fileAlt, color: _primaryBlue, size: 24),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        complaint['title'] ?? 'Untitled',
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: _darkBlue, fontSize: 16),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'Status: ${complaint['status'] ?? 'Unknown'}',
-                                        style: TextStyle(color: _getStatusColor(complaint['status']), fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: FaIcon(FontAwesomeIcons.check, color: Colors.green),
-                                      onPressed: () => _resolveComplaint(complaint['id'].toString(), 'Resolved by Director'),
-                                    ),
-                                    IconButton(
-                                      icon: FaIcon(FontAwesomeIcons.times, color: Colors.red),
-                                      onPressed: () => _rejectComplaint(complaint['id'].toString()),
-                                    ),
-                                  ],
-                                ),
-                                Icon(Icons.chevron_right, color: _primaryPurple),
-                              ],
-                            ),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
                       );
                     },
