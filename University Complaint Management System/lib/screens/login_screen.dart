@@ -7,7 +7,7 @@ import 'student_dashboard.dart';
 import 'advisor_dashboard.dart';
 import 'hod_dashboard.dart';
 import 'director_dashboard.dart';
-
+//login screen
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
