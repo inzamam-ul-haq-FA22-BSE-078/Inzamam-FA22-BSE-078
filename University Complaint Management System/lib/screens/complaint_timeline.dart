@@ -19,10 +19,7 @@ class _ComplaintTimelineState extends State<ComplaintTimeline> with SingleTicker
   late Animation<Offset> _slideAnimation;
 
   // Color Scheme
-  final Color _primaryBlue = const Color(0xFF2962FF);
-  final Color _primaryPurple = const Color(0xFF9C27B0);
-  final Color _lightBlue = const Color(0xFFE3F2FD);
-  final Color _darkBlue = const Color(0xFF0D47A1);
+ 
 
   @override
   void initState() {
@@ -68,33 +65,7 @@ class _ComplaintTimelineState extends State<ComplaintTimeline> with SingleTicker
     }
   }
 
-  Widget _buildAnimatedCard(Widget child, int index) {
-    return SlideTransition(
-      position: _slideAnimation,
-      child: FadeTransition(
-        opacity: _fadeAnimation,
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 8.0,
-            bottom: 8.0,
-            left: 16.0,
-            right: 16.0,
-          ),
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Transform.scale(
-                scale: 0.9 + (0.1 * _controller.value),
-                child: child,
-              );
-            },
-            child: child,
-          ),
-        ),
-      ),
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     final supabase = Supabase.instance.client;
