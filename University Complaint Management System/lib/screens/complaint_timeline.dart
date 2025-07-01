@@ -52,7 +52,21 @@ class _ComplaintTimelineState extends State<ComplaintTimeline> with SingleTicker
     super.dispose();
   }
 
-  
+  Future<void> _copyToClipboard(BuildContext context, String url) async {
+    await Clipboard.setData(ClipboardData(text: url));
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('URL copied to clipboard'),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: _primaryBlue,
+        ),
+      );
+    }
+  }
 
   Widget _buildAnimatedCard(Widget child, int index) {
     return SlideTransition(
