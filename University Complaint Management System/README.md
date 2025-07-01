@@ -45,8 +45,8 @@ https://github.com/user-attachments/assets/9fbfedf1-85c9-453b-8c26-22ea23470f7b
 
 <h3>App Screenshots</h3>
 <div style="display: flex; justify-content: space-between; gap: 10px; max-width: 820px; margin: 0 auto;">
-  <img src="https://github.com/user-attachments/assets/fb0e7b26-a4b3-4527-8f1b-e430aee30a23" alt="Image 1" width="200" height="200" style="object-fit: cover;">
-  <img src="https://github.com/user-attachments/assets/22d30870-2677-4126-a786-9b86024e1313" alt="Image 2" width="200" height="200" style="object-fit: cover;">
-  <img src="https://github.com/user-attachments/assets/3f667514-54cb-4cb0-b3aa-f5533293f504" alt="Image 3" width="200" height="200" style="object-fit: cover;">
-  <img src="https://github.com/user-attachments/assets/6bf064a2-ead7-448c-8ae1-131cfd76f2e1" alt="Image 4" width="200" height="200" style="object-fit: cover;">
+  <img src="https://github.com/user-attachments/assets/fb0e7b26-a4b3-4527-8f1b-e430aee30a23" alt="Image 1" width="350" height="600" style="object-fit: cover;">
+  <img src="https://github.com/user-attachments/assets/22d30870-2677-4126-a786-9b86024e1313" alt="Image 2" width="350" height="600" style="object-fit: cover;">
+  <img src="https://github.com/user-attachments/assets/3f667514-54cb-4cb0-b3aa-f5533293f504" alt="Image 3" width="350" height="600" style="object-fit: cover;">
+  <img src="https://github.com/user-attachments/assets/6bf064a2-ead7-448c-8ae1-131cfd76f2e1" alt="Image 4" width="350" height="600" style="object-fit: cover;">
 </div>
