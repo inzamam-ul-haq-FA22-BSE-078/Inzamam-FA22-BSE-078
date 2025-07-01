@@ -20,47 +20,45 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   final _passwordController = TextEditingController();
   final SupabaseClient supabase = Supabase.instance.client;
   late AnimationController _controller;
-  late Animation<double> _slideAnimation;
-  late Animation<double> _rotateAnimation;
-  late Animation<Color?> _glowAnimation;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+  late Animation<Color?> _colorAnimation;
   bool _isLoading = false;
   bool _obscurePassword = true;
 
-  // New Color Scheme
-  final Color _primaryTeal = const Color(0xFF26A69A);
-  final Color _accentOrange = const Color(0xFFF57C00);
-  final Color _softGray = const Color(0xFFE0E0E0);
-  final Color _darkTeal = const Color(0xFF00695C);
-  final Color _lightOrange = const Color(0xFFFFB74D);
+  // Color Scheme
+  final Color _primaryBlue = const Color(0xFF2962FF);
+  final Color _primaryPurple = const Color(0xFF9C27B0);
+  final Color _lightBlue = const Color(0xFFE3F2FD);
+  final Color _darkBlue = const Color(0xFF0D47A1);
+  final Color _darkPurple = const Color(0xFF6A1B9A);
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1500),
     );
 
-    _slideAnimation = Tween<double>(begin: -200, end: 0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutExpo),
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutQuint),
     );
 
-    _rotateAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCirc),
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
     );
 
-    _glowAnimation = ColorTween(
-      begin: _primaryTeal.withOpacity(0.3),
-      end: _accentOrange.withOpacity(0.7),
+    _colorAnimation = ColorTween(
+      begin: _primaryBlue.withOpacity(0.5),
+      end: _primaryPurple.withOpacity(0.8),
     ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine),
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
     _controller.forward();
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.repeat(period: const Duration(seconds: 2));
-      }
+    _controller.addListener(() {
+      setState(() {});
     });
   }
 
@@ -138,239 +136,222 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_primaryTeal, _accentOrange],
+            colors: [_primaryBlue, _primaryPurple],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: const [0.2, 0.8],
+            stops: const [0.3, 0.7],
           ),
         ),
         child: Center(
           child: AnimatedBuilder(
             animation: _controller,
             builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(_slideAnimation.value, 0),
-                child: Card(
-                  elevation: 25,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  color: Colors.white.withOpacity(0.2),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: BackdropFilter(
-                      filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: _glowAnimation.value ?? _primaryTeal, width: 1.5),
+              return Transform.scale(
+                scale: _scaleAnimation.value,
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Card(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        gradient: LinearGradient(
+                          colors: [_lightBlue, Colors.white],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // Rotating Logo
-                              TweenAnimationBuilder(
-                                tween: Tween<double>(begin: 0, end: _rotateAnimation.value * 2 * 3.1416),
-                                duration: const Duration(milliseconds: 1200),
-                                builder: (context, double angle, child) {
-                                  return Transform.rotate(
-                                    angle: angle,
-                                    child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 800),
-                                      padding: const EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        color: _softGray,
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: _lightOrange.withOpacity(0.5),
-                                            blurRadius: 15,
-                                            spreadRadius: 3,
-                                          ),
-                                        ],
-                                      ),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.university,
-                                        size: 60,
-                                        color: _darkTeal,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-
-                              const SizedBox(height: 30),
-
-                              // Title with fade and scale
-                              TweenAnimationBuilder(
-                                tween: Tween<double>(begin: 0, end: 1),
-                                duration: const Duration(milliseconds: 1000),
-                                builder: (context, value, child) {
-                                  return Opacity(
-                                    opacity: value,
-                                    child: Transform.scale(
-                                      scale: value,
-                                      child: child,
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'University Portal',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.w600,
-                                    color: _darkTeal,
-                                    letterSpacing: 1.5,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-
-                              const SizedBox(height: 35),
-
-                              // Email Field
-                              TextField(
-                                controller: _emailController,
-                                style: TextStyle(color: _darkTeal),
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  labelStyle: TextStyle(color: _darkTeal.withOpacity(0.6)),
-                                  prefixIcon: FaIcon(
-                                    FontAwesomeIcons.envelope,
-                                    color: _primaryTeal,
-                                    size: 20,
-                                  ),
-                                  filled: true,
-                                  fillColor: _softGray.withOpacity(0.9),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: _accentOrange,
-                                      width: 2.5,
-                                    ),
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 18, horizontal: 22),
-                                ),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Password Field
-                              TextField(
-                                controller: _passwordController,
-                                obscureText: _obscurePassword,
-                                style: TextStyle(color: _darkTeal),
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  labelStyle: TextStyle(color: _darkTeal.withOpacity(0.6)),
-                                  prefixIcon: FaIcon(
-                                    FontAwesomeIcons.lock,
-                                    color: _primaryTeal,
-                                    size: 20,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: AnimatedSwitcher(
-                                      duration: const Duration(milliseconds: 300),
-                                      transitionBuilder: (child, animation) {
-                                        return FadeTransition(opacity: animation, child: child);
-                                      },
-                                      child: FaIcon(
-                                        key: ValueKey<bool>(_obscurePassword),
-                                        _obscurePassword ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
-                                        color: _accentOrange,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscurePassword = !_obscurePassword;
-                                      });
-                                    },
-                                  ),
-                                  filled: true,
-                                  fillColor: _softGray.withOpacity(0.9),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: _accentOrange,
-                                      width: 2.5,
-                                    ),
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 18, horizontal: 22),
-                                ),
-                              ),
-
-                              const SizedBox(height: 35),
-
-                              // Pulsating Login Button
-                              TweenAnimationBuilder(
-                                tween: Tween<double>(begin: 1, end: 1.05),
-                                duration: const Duration(milliseconds: 1000),
-                                curve: Curves.easeInOut,
-                                builder: (context, scale, child) {
-                                  return Transform.scale(
-                                    scale: scale,
-                                    child: child,
-                                  );
-                                },
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20),
-                                  elevation: 8,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(20),
-                                    onTap: _isLoading ? null : _login,
-                                    child: Ink(
-                                      width: double.infinity,
-                                      height: 55,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        gradient: LinearGradient(
-                                          colors: [_primaryTeal, _accentOrange],
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: _isLoading
-                                            ? const SpinKitThreeBounce(
-                                          color: Colors.white,
-                                          size: 22,
-                                        )
-                                            : const Text(
-                                          'Sign In',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        boxShadow: [
+                          BoxShadow(
+                            color: _colorAnimation.value ?? _primaryBlue,
+                            blurRadius: 20,
+                            spreadRadius: 1,
                           ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Animated Logo
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 800),
+                              curve: Curves.fastOutSlowIn,
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: _lightBlue,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: _primaryBlue.withOpacity(0.4),
+                                    blurRadius: 10,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: const FaIcon(
+                                FontAwesomeIcons.university,
+                                size: 50,
+                                color: Color(0xFF2962FF),
+                              ),
+                            ),
+
+                            const SizedBox(height: 25),
+
+                            // Title with subtle animation
+                            TweenAnimationBuilder(
+                              tween: Tween<double>(begin: 0, end: 1),
+                              duration: const Duration(milliseconds: 800),
+                              builder: (context, value, child) {
+                                return Transform.translate(
+                                  offset: Offset(0, 20 * (1 - value)),
+                                  child: Opacity(
+                                    opacity: value,
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'University Complaint System',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: _darkBlue,
+                                  letterSpacing: 1.2,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            // Email Field
+                            TextField(
+                              controller: _emailController,
+                              style: TextStyle(color: _darkBlue),
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                labelStyle: TextStyle(color: _darkBlue.withOpacity(0.7)),
+                                prefixIcon: FaIcon(
+                                  FontAwesomeIcons.envelope,
+                                  color: _primaryBlue,
+                                  size: 18,
+                                ),
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(0.8),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: _primaryBlue,
+                                    width: 2,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: 20),
+                              ),
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            // Password Field
+                            TextField(
+                              controller: _passwordController,
+                              obscureText: _obscurePassword,
+                              style: TextStyle(color: _darkBlue),
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                labelStyle: TextStyle(color: _darkBlue.withOpacity(0.7)),
+                                prefixIcon: FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  color: _primaryBlue,
+                                  size: 18,
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: FaIcon(
+                                    _obscurePassword
+                                        ? FontAwesomeIcons.eyeSlash
+                                        : FontAwesomeIcons.eye,
+                                    color: _primaryBlue,
+                                    size: 18,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(0.8),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: _primaryBlue,
+                                    width: 2,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: 20),
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            // Login Button
+                            Material(
+                              borderRadius: BorderRadius.circular(15),
+                              elevation: 5,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(15),
+                                onTap: _isLoading ? null : _login,
+                                child: Ink(
+                                  width: double.infinity,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    gradient: LinearGradient(
+                                      colors: [_primaryBlue, _primaryPurple],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: _isLoading
+                                        ? const SpinKitThreeBounce(
+                                      color: Colors.white,
+                                      size: 20,
+                                    )
+                                        : const Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
