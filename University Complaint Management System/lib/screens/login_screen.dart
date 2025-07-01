@@ -178,27 +178,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // Animated Logo
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 800),
-                              curve: Curves.fastOutSlowIn,
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: _lightBlue,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: _primaryBlue.withOpacity(0.4),
-                                    blurRadius: 10,
-                                    spreadRadius: 2,
-                                  ),
-                                ],
-                              ),
-                              child: const FaIcon(
-                                FontAwesomeIcons.university,
-                                size: 50,
-                                color: Color(0xFF2962FF),
-                              ),
-                            ),
+                            
 
                             const SizedBox(height: 25),
 
