@@ -37,9 +37,10 @@
 
 
 <h3>App Detail description with audio</h3>
-<video width="360" height="640" controls>
-  <source src="https://github.com/user-attachments/assets/7900a9af-c0a8-4633-ac1a-65216bda2e10" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+
+https://github.com/user-attachments/assets/9fbfedf1-85c9-453b-8c26-22ea23470f7b
+
+
 
 <h3>App Screenshots</h3>
