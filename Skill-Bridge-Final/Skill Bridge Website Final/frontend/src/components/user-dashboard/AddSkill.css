@@ -1,0 +1,271 @@
+.add-skill-page { padding: 24px; }
+.page-header h1 { margin: 0 0 6px; }
+
+/* Reuse the EditProfileForm layout but provide small overrides for AddSkill */
+.add-skill-form { background: rgba(26,26,46,0.85); padding: 28px; border-radius: 16px; border: 1px solid rgba(124,58,237,0.12); max-width:1000px; margin: 0 auto; }
+
+.form-section { display:flex; flex-direction:column; gap:16px; }
+.form-group label { display:block; font-weight:600; margin-bottom:6px; color:#e6e0ff; }
+.form-group input[type=text], .form-group input, .form-group textarea, .form-group select { width:100%; padding:12px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(124,58,237,0.08); color:#fff; border-radius:10px; }
+
+.tags-input { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:8px; border-radius:8px; background: rgba(255,255,255,0.02); }
+.tag { background: rgba(255,255,255,0.04); padding:6px 8px; border-radius:14px; display:inline-flex; gap:6px; align-items:center; font-size:13px; }
+.tag-remove { background:transparent; border:none; color:#fff; margin-left:6px; cursor:pointer; }
+.tag-suggestions { margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+.suggestion { background: rgba(124,58,237,0.12); border:none; padding:6px 10px; border-radius:8px; color:#bdb7ff; cursor:pointer; }
+
+.preview-large { width:100%; border-radius:10px; margin-top:12px; }
+.gallery-preview { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.preview-thumb { width:120px; height:80px; object-fit:cover; border-radius:8px; }
+.error-message { color:#ff7b7b; font-size:13px; margin-top:6px; }
+
+/* Buttons - aligned and consistent */
+.form-actions { margin-top:18px; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+
+.form-actions .cancel-btn { background: transparent; border: 1px solid rgba(255,255,255,0.06); color:#d1c4ff; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; transition: all 0.18s ease; min-width:110px; text-align:center; }
+.form-actions .cancel-btn:hover { background: rgba(255,255,255,0.02); transform: translateY(-2px); }
+
+.form-actions .upload-btn, .form-actions .next-btn {
+  background: linear-gradient(135deg,#7c3aed,#a78bfa);
+  color: #fff;
+  padding:10px 18px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:800;
+  box-shadow: 0 8px 28px rgba(124,58,237,0.16);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  min-width:150px;
+}
+.form-actions .upload-btn:hover, .form-actions .next-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(124,58,237,0.28);
+}
+
+/* Mobile: stack buttons with primary on top */
+@media (max-width: 600px) {
+  .form-actions { flex-direction: column-reverse; align-items: stretch; }
+  .form-actions .cancel-btn, .form-actions .upload-btn { width:100%; min-width:unset; }
+}
+
+/* Legal Warning Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning-icon {
+  font-size: 1.8rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #374151;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-body h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.warning-list li {
+  color: #374151;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.modal-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  background: #7c3aed;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #6d28d9;
+}
+
+/* Profile upload preview */
+.profile-upload-container { display:flex; gap:20px; align-items:center; background: rgba(124,58,237,0.03); padding:14px; border-radius:12px; }
+.preview-image { width:120px; height:120px; border-radius:12px; object-fit:cover; border: 2px solid rgba(124,58,237,0.1); }
+.upload-controls { display:flex; flex-direction:column; gap:8px; }
+.file-input { display:none; }
+.file-upload-label { cursor:pointer; }
+/* Progress tweaks (uses EditProfileForm classes but ensure good spacing) */
+.progress-section { max-width:1000px; margin: 0 auto 18px; padding: 0 12px; }
+.progress-steps { display:flex; gap:12px; align-items:center; }
+.step-number { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
+
+@media (max-width: 900px){
+  .add-skill-form { padding:18px; }
+  .preview-thumb { width:96px; height:64px; }
+}
+
+.verification-docs-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+.verification-doc-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(124,58,237,0.2); padding: 6px 10px; border-radius:8px; display:flex; align-items:center; gap:8px; }
+.verification-doc-item .remove-btn { background: transparent; border:none; color:#ff8a8a; font-weight:bold; cursor:pointer; }
+
+/* Edit Skill Modal Styles */
+.edit-restriction-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.edit-restriction-modal {
+  background: #0f0a1a;
+  padding: 32px;
+  border-radius: 16px;
+  width: 420px;
+  max-width: 95%;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  box-shadow: 0 12px 40px rgba(10, 8, 20, 0.8);
+}
+
+.modal-header-edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header-edit h3 {
+  color: #e9e5ff;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.modal-close-btn-edit {
+  background: transparent;
+  border: none;
+  color: #a78bfa;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.modal-close-btn-edit:hover {
+  transform: scale(1.2);
+}
+
+.modal-body-edit {
+  margin-bottom: 24px;
+}
+
+.modal-body-edit p {
+  color: #d6caff;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.modal-body-edit strong {
+  color: #ffffff;
+}
+
+.modal-footer-edit {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-btn-ok {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal-btn-ok:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+}
+
+.modal-footer .btn{
+  padding:12px !important;
+}

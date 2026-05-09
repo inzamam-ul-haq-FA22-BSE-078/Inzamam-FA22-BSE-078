@@ -1,0 +1,368 @@
+/* Skills Management Component Styles */
+
+.skills-management-container {
+  width: 100%;
+}
+
+.skills-management {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-header h2 {
+  color: #e5e7eb;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 10px 15px;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  min-width: 250px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+.badge-filter {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: #f0f2f5;
+  color: #2d3436;
+  border: 2px solid #e8e8e8;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #1a1a1a;
+  background: white;
+}
+
+.filter-btn.active {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+.filter-dropdown {
+  padding: 10px 15px;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #a78bfa;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.admin-table th {
+  padding: 15px;
+  text-align: left;
+  color: #a78bfa;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.admin-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+  color: #e5e7eb;
+}
+
+.admin-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.skill-title-cell {
+  display: flex;
+  align-items: center;
+}
+
+.skill-title-button {
+  border: none;
+  background: transparent;
+  color: #f8fafc;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.skill-title-button:hover {
+  text-decoration: underline;
+}
+
+.owner-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-name {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.owner-email {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.verified {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.unverified {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.action-btn {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.action-btn.verify {
+  background: #16a34a;
+}
+
+.action-btn.verify:hover {
+  background: #15803d;
+}
+
+.action-btn.unverify {
+  background: #dc2626;
+}
+
+.action-btn.unverify:hover {
+  background: #b91c1c;
+}
+
+.loading {
+  text-align: center;
+  color: #9ca3af;
+  padding: 40px;
+  font-size: 1.1rem;
+}
+
+.no-results {
+  text-align: center;
+  color: #9ca3af;
+  padding: 40px;
+  font-size: 1rem;
+}
+
+.docs-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 12, 32, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.docs-modal-content {
+  width: min(720px, 95%);
+  background: #130f2c;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+.docs-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.docs-modal-header h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.35rem;
+}
+
+.docs-modal-subtitle {
+  margin: 6px 0 0;
+  color: #c7d2fe;
+  font-size: 0.95rem;
+}
+
+.docs-modal-close {
+  border: none;
+  background: transparent;
+  color: #f8fafc;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.docs-modal-body {
+  color: #e5e7eb;
+}
+
+.docs-modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.docs-modal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.doc-name {
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.doc-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: #7c3aed;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.doc-download-btn:hover {
+  background: #6d28d9;
+}
+
+.docs-modal-empty {
+  color: #c7d2fe;
+  margin: 0;
+  padding: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .filter-dropdown {
+    width: 100%;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .action-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+}
